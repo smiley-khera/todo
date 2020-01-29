@@ -1,28 +1,14 @@
-== README
+== Simple Todo API app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+== Installation steps
+    git clone https://github.com/smiley-khera/todo.git
+    cd todo
+    bundle install
+    rake db:create
+    rails s
 
-Things you may want to cover:
+== API Docs
 
-* Ruby version
+== Run Tests
+    rspec
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
