@@ -79,7 +79,7 @@ describe "Todo Items Management", type: :request do
       end
       it 'has updated the todo successfully' do
         expect(response).to have_http_status 200
-        expect(parse_json["title"]).to eq "Buy jeans"
+        expect(parse_json["todo_item"]["title"]).to eq "Buy jeans"
       end
     end
 
@@ -132,7 +132,7 @@ describe "Todo Items Management", type: :request do
       end
       it 'has restored the todo successfully' do
         expect(response).to have_http_status 200
-        expect(parse_json["title"]).to eq "Buy Shirt"
+        expect(parse_json["todo_item"]["title"]).to eq "Buy Shirt"
       end
     end
   end
@@ -146,7 +146,7 @@ describe "Todo Items Management", type: :request do
       end
       it 'find and returns todos of this tag' do
         expect(response).to have_http_status 200
-        expect(parse_json.first["title"]).to eq(todo.title)
+        expect(parse_json.first["todo_item"]["title"]).to eq(todo.title)
       end
     end
   end
