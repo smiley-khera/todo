@@ -34,6 +34,18 @@ class Api::V1::TodoItemsController < BaseController
     end
   end
 
+  # PATCH /todo_items/1/add_tags.json
+  def add_tags
+    @todo_item.push(tag_ids: params[:todo_item][:tag_ids])
+    render :show, status: :ok
+  end
+
+  #PATCH todo_items/1/remove_tag.json
+  def remove_tag
+    @todo_item.pull(tag_ids: params[:todo_item][:tag_id])
+    render :show, status: :ok
+  end
+
   # DELETE /todo_items/1.json
   def destroy
     @todo_item.destroy #This method will soft delete the to-do item

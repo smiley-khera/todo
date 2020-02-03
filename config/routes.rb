@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resources :todo_items, except: [:new, :edit] do
         member do
           patch 'restore' => 'todo_items#restore'
+          patch 'add_tags' => 'todo_items#add_tags'
+          patch 'remove_tag' => 'todo_items#remove_tag'
         end
       end
     end

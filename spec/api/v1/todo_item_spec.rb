@@ -102,13 +102,26 @@ describe "Todo Items Management", type: :request do
       let(:todo_params) { {"todo_item": {"tag_ids": [tag.id]}} }
 
       before do
-        patch "/api/v1/todo_items/#{todo.id}.json", todo_params
+        patch "/api/v1/todo_items/#{todo.id}/add_tags.json", todo_params
       end
       it 'attach tags successfully' do
         expect(response).to have_http_status 200
       end
     end
+
+    context 'Remove tag from todo item' do
+      let(:todo)        { create(:todo_item, :with_tag) }
+      let(:todo_params) { {"todo_item": {"tag_id": todo.tag_ids.first} }}
+
+      before do
+        patch "/api/v1/todo_items/#{todo.id}/remove_tag.json", todo_params
+      end
+      it 'remove tag successfully' do
+        expect(response).to have_http_status 200
+      end
+    end
   end
+
 
   describe 'DELETE api/v1/todo_items/:id' do
     context 'Soft Delete todo item' do
