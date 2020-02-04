@@ -10,6 +10,9 @@
    ```
 
 ## API Docs
+```
+https://documenter.getpostman.com/view/10061725/SWTEdGS4
+```
 
 ## Run Tests
     rspec
