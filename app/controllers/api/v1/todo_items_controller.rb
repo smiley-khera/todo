@@ -36,13 +36,17 @@ class Api::V1::TodoItemsController < BaseController
 
   # PATCH /todo_items/1/add_tags.json
   def add_tags
-    @todo_item.push(tag_ids: params[:todo_item][:tag_ids])
-    render :show, status: :ok
+    if @todo_item.tags <<
+        (params[:todo_item][:tag_ids].map { |tag| Tag.find(tag) })
+      render :show, status: :ok
+    else
+      respond_with @todo_item, status: :unprocessable_entity
+    end
   end
 
   #PATCH todo_items/1/remove_tag.json
   def remove_tag
-    @todo_item.pull(tag_ids: params[:todo_item][:tag_id])
+    @todo_item.tags.delete(Tag.find(params[:todo_item][:tag_id]))
     render :show, status: :ok
   end
 
@@ -71,6 +75,6 @@ class Api::V1::TodoItemsController < BaseController
 
   # Whitelist parameters
   def todo_item_params
-    params.require(:todo_item).permit(:title, :description, :status, tag_ids: [])
+    params.require(:todo_item).permit(:title, :description, :status)
   end
 end
