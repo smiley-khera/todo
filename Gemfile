@@ -30,6 +30,8 @@ gem 'kaminari-mongoid'
 gem 'rabl'
 # JSON parser
 gem 'oj'
+# Allow CORS origin
+gem 'rack-cors'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

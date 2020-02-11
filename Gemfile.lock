@@ -105,6 +105,8 @@ GEM
     rabl (0.14.2)
       activesupport (>= 2.3.14)
     rack (1.6.12)
+    rack-cors (1.0.6)
+      rack (>= 1.6.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7.1)
@@ -208,6 +210,7 @@ DEPENDENCIES
   mongoid_paranoia
   oj
   rabl
+  rack-cors
   rails (= 4.2.7.1)
   responders
   rspec-rails
