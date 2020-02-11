@@ -24,5 +24,9 @@ class TodoItem
     def to_s
        map(&:name).join(",")
     end
+
+    def to_a
+      map{|tag| {id: tag.id.to_s, name: tag.name}}
+    end
   end
 end
