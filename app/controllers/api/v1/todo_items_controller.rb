@@ -1,7 +1,7 @@
 class Api::V1::TodoItemsController < BaseController
   respond_to :json
 
-  before_filter :set_todo_item, except: [:index, :create, :restore]
+  before_filter :set_todo_item, except: [:index, :create, :restore, :archived_items]
   before_filter :deleted_todo_item, only: [:restore]
 
   # GET /todo_items.json
@@ -15,7 +15,7 @@ class Api::V1::TodoItemsController < BaseController
   def create
     @todo_item = TodoItem.new(todo_item_params)
     if @todo_item.save
-      respond_with @todo_item, status: :created, location: @todo_item
+      render :show, status: :created, location: @todo_item
     else
       respond_with @todo_item, status: :unprocessable_entity
     end
@@ -27,7 +27,8 @@ class Api::V1::TodoItemsController < BaseController
 
   # PATCH/PUT /todo_items/1.json
   def update
-    if @todo_item.update(todo_item_params)
+    if @todo_item.update(todo_item_params) &&  @todo_item.tags <<
+        (params[:todo_item][:tag_ids].map { |tag| Tag.find(tag) })
       render :show, status: :ok
     else
       respond_with @todo_item, status: :unprocessable_entity
@@ -54,6 +55,12 @@ class Api::V1::TodoItemsController < BaseController
   def destroy
     @todo_item.destroy #This method will soft delete the to-do item
     head :no_content
+  end
+
+  # GET /todo_items/archive.json
+  def archived_items
+    @todo_items = TodoItem.deleted # This method will fetch deleted to-do items
+    render template: "api/v1/todo_items/index"
   end
 
   # PATCH /todo_items/1/restore.json

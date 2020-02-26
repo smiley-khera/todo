@@ -6,6 +6,7 @@ Rails.application.routes.draw do
           get 'todo_items' => 'tags#todo_items'
         end
       end
+      get 'todo_items/archive' => 'todo_items#archived_items'
       resources :todo_items, except: [:new, :edit] do
         member do
           patch 'restore' => 'todo_items#restore'

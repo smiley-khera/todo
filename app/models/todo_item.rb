@@ -1,5 +1,5 @@
 class TodoItem
-  STATUS = ['Pending', 'Start', 'Finish']
+  STATUS = ['Pending', 'Started', 'Finished']
 
   # Libraries
   include Mongoid::Document
