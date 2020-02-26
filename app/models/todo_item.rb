@@ -1,5 +1,5 @@
 class TodoItem
-  STATUS = ['Pending', 'Start', 'Finish']
+  STATUS = ['Pending', 'Started', 'Finished']
 
   # Libraries
   include Mongoid::Document
@@ -23,6 +23,10 @@ class TodoItem
   has_and_belongs_to_many :tags, inverse_of: nil do
     def to_s
        map(&:name).join(",")
+    end
+
+    def to_a
+      map{|tag| {id: tag.id.to_s, name: tag.name}}
     end
   end
 end

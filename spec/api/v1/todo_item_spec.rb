@@ -79,7 +79,7 @@ describe "Todo Items Management", type: :request do
       end
       it 'has updated the todo successfully' do
         expect(response).to have_http_status 200
-        expect(parse_json["title"]).to eq "Buy jeans"
+        expect(parse_json["todo_item"]["title"]).to eq "Buy jeans"
       end
     end
 
@@ -102,13 +102,26 @@ describe "Todo Items Management", type: :request do
       let(:todo_params) { {"todo_item": {"tag_ids": [tag.id]}} }
 
       before do
-        patch "/api/v1/todo_items/#{todo.id}.json", todo_params
+        patch "/api/v1/todo_items/#{todo.id}/add_tags.json", todo_params
       end
       it 'attach tags successfully' do
         expect(response).to have_http_status 200
       end
     end
+
+    context 'Remove tag from todo item' do
+      let(:todo)        { create(:todo_item, :with_tag) }
+      let(:todo_params) { {"todo_item": {"tag_id": todo.tag_ids.first} }}
+
+      before do
+        patch "/api/v1/todo_items/#{todo.id}/remove_tag.json", todo_params
+      end
+      it 'remove tag successfully' do
+        expect(response).to have_http_status 200
+      end
+    end
   end
+
 
   describe 'DELETE api/v1/todo_items/:id' do
     context 'Soft Delete todo item' do
@@ -132,7 +145,7 @@ describe "Todo Items Management", type: :request do
       end
       it 'has restored the todo successfully' do
         expect(response).to have_http_status 200
-        expect(parse_json["title"]).to eq "Buy Shirt"
+        expect(parse_json["todo_item"]["title"]).to eq "Buy Shirt"
       end
     end
   end
@@ -146,7 +159,7 @@ describe "Todo Items Management", type: :request do
       end
       it 'find and returns todos of this tag' do
         expect(response).to have_http_status 200
-        expect(parse_json.first["title"]).to eq(todo.title)
+        expect(parse_json.first["todo_item"]["title"]).to eq(todo.title)
       end
     end
   end
