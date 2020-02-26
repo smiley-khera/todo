@@ -13,7 +13,7 @@ class Api::V1::TagsController < BaseController
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
-      respond_with @tag, status: :created, location: @tag
+      render :show, status: :created, location: @tag
     else
       respond_with @tag, status: :unprocessable_entity
     end
